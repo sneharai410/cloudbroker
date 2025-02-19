@@ -1,0 +1,2 @@
+module CloudletsHelper
+end

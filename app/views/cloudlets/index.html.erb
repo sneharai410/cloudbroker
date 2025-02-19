@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Cloudlets</h1>
+
+<div id="cloudlets">
+  <% @cloudlets.each do |cloudlet| %>
+    <%= render cloudlet %>
+    <p>
+      <%= link_to "Show this cloudlet", cloudlet %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New cloudlet", new_cloudlet_path %>

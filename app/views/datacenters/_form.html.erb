@@ -1,0 +1,112 @@
+<%= form_with(model: datacenter) do |form| %>
+  <% if datacenter.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(datacenter.errors.count, "error") %> prohibited this datacenter from being saved:</h2>
+
+      <ul>
+        <% datacenter.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :num_hosts, style: "display: block" %>
+    <%= form.number_field :num_hosts %>
+  </div>
+
+  <div>
+    <%= form.label :pe_mips, style: "display: block" %>
+    <%= form.number_field :pe_mips %>
+  </div>
+
+  <div>
+    <%= form.label :ram, style: "display: block" %>
+    <%= form.number_field :ram %>
+  </div>
+
+  <div>
+    <%= form.label :storage, style: "display: block" %>
+    <%= form.number_field :storage %>
+  </div>
+
+  <div>
+    <%= form.label :bandwidth, style: "display: block" %>
+    <%= form.number_field :bandwidth %>
+  </div>
+
+  <div>
+    <%= form.label :scheduling_policy, style: "display: block" %>
+    <%= form.text_field :scheduling_policy %>
+  </div>
+
+  <div>
+    <%= form.label :power_model, style: "display: block" %>
+    <%= form.text_field :power_model %>
+  </div>
+
+  <div>
+    <%= form.label :latency, style: "display: block" %>
+    <%= form.number_field :latency %>
+  </div>
+
+  <div>
+    <%= form.label :topology, style: "display: block" %>
+    <%= form.text_field :topology %>
+  </div>
+
+  <div>
+    <%= form.label :bandwidth_policy, style: "display: block" %>
+    <%= form.text_field :bandwidth_policy %>
+  </div>
+
+  <div>
+    <%= form.label :storage_type, style: "display: block" %>
+    <%= form.text_field :storage_type %>
+  </div>
+
+  <div>
+    <%= form.label :cpu_cost, style: "display: block" %>
+    <%= form.text_field :cpu_cost %>
+  </div>
+
+  <div>
+    <%= form.label :ram_cost, style: "display: block" %>
+    <%= form.text_field :ram_cost %>
+  </div>
+
+  <div>
+    <%= form.label :storage_cost, style: "display: block" %>
+    <%= form.text_field :storage_cost %>
+  </div>
+
+  <div>
+    <%= form.label :bw_cost, style: "display: block" %>
+    <%= form.text_field :bw_cost %>
+  </div>
+
+  <div>
+    <%= form.label :power_usage, style: "display: block" %>
+    <%= form.text_field :power_usage %>
+  </div>
+
+  <div>
+    <%= form.label :idle_power, style: "display: block" %>
+    <%= form.text_field :idle_power %>
+  </div>
+
+  <div>
+    <%= form.label :autoscaling, style: "display: block" %>
+    <%= form.check_box :autoscaling %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

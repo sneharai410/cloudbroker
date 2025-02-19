@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @cloudlet %>
+
+<div>
+  <%= link_to "Edit this cloudlet", edit_cloudlet_path(@cloudlet) %> |
+  <%= link_to "Back to cloudlets", cloudlets_path %>
+
+  <%= button_to "Destroy this cloudlet", @cloudlet, method: :delete %>
+</div>

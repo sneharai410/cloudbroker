@@ -1,0 +1,42 @@
+<%= form_with(model: vm) do |form| %>
+  <% if vm.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(vm.errors.count, "error") %> prohibited this vm from being saved:</h2>
+
+      <ul>
+        <% vm.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :datacenter_id, style: "display: block" %>
+    <%= form.text_field :datacenter_id %>
+  </div>
+
+  <div>
+    <%= form.label :mips, style: "display: block" %>
+    <%= form.number_field :mips %>
+  </div>
+
+  <div>
+    <%= form.label :ram, style: "display: block" %>
+    <%= form.number_field :ram %>
+  </div>
+
+  <div>
+    <%= form.label :storage, style: "display: block" %>
+    <%= form.number_field :storage %>
+  </div>
+
+  <div>
+    <%= form.label :bandwidth, style: "display: block" %>
+    <%= form.number_field :bandwidth %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

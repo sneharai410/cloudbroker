@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Datacenters</h1>
+
+<div id="datacenters">
+  <% @datacenters.each do |datacenter| %>
+    <%= render datacenter %>
+    <p>
+      <%= link_to "Show this datacenter", datacenter %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New datacenter", new_datacenter_path %>

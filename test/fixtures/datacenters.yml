@@ -1,0 +1,43 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  num_hosts: 1
+  pe_mips: 1
+  ram: 1
+  storage: 1
+  bandwidth: 1
+  scheduling_policy: MyString
+  power_model: MyString
+  latency: 1
+  topology: MyString
+  bandwidth_policy: MyString
+  storage_type: MyString
+  cpu_cost: 1.5
+  ram_cost: 1.5
+  storage_cost: 1.5
+  bw_cost: 1.5
+  power_usage: 1.5
+  idle_power: 1.5
+  autoscaling: false
+
+two:
+  name: MyString
+  num_hosts: 1
+  pe_mips: 1
+  ram: 1
+  storage: 1
+  bandwidth: 1
+  scheduling_policy: MyString
+  power_model: MyString
+  latency: 1
+  topology: MyString
+  bandwidth_policy: MyString
+  storage_type: MyString
+  cpu_cost: 1.5
+  ram_cost: 1.5
+  storage_cost: 1.5
+  bw_cost: 1.5
+  power_usage: 1.5
+  idle_power: 1.5
+  autoscaling: false
