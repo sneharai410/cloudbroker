@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @simulation_result %>
+
+<div>
+  <%= link_to "Edit this simulation result", edit_simulation_result_path(@simulation_result) %> |
+  <%= link_to "Back to simulation results", simulation_results_path %>
+
+  <%= button_to "Destroy this simulation result", @simulation_result, method: :delete %>
+</div>

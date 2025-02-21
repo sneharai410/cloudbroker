@@ -1,0 +1,2 @@
+class SimulationResult < ApplicationRecord
+end

@@ -36,6 +36,8 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
+gem 'will_paginate', '~> 3.3'
+gem 'redis-rails'
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]

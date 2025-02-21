@@ -1,0 +1,59 @@
+<p style="color: green"><%= notice %></p>
+<div id="simulation_results">
+  <% cache [@simulation_results, params[:page]] do %>
+    <table class="table table-striped border ">
+      <thead>
+      <tr class="table-primary"> <!-- Use a Bootstrap class for the header row -->
+      <th>Cloudlet</th>
+      <th>Vm</th>
+      <th>Datacenter</th>
+      <th>Execution time</th>
+      <th>Cpu utilization</th>
+      <th>Ram utilization</th>
+      <th>Bw utilization</th>
+      <th>Storage utilization</th>
+      <th>Cost</th>
+      <th>Sla breach cost</th>
+      <th>Cpu breach</th>
+      <th>Ram breach</th>
+      <th>Bw breach</th>
+      <th>Execution time breach</th>
+      <th>Datacenter cpu cost</th>
+      <th>Datacenter ram cost</th>
+      <th>Datacenter storage cost</th>
+      <th>Datacenter bw cost</th>
+      <th>Vm cpu cores</th>
+      <th>Vm ram</th>
+      <th>Vm storage</th>
+      <th>Vm bw</th>
+      <th>Vm mips</th>
+      <th>Cloudlet length</th>
+      <th>Cloudlet pes</th>
+      <th>Cloudlet file size</th>
+      <th>Cloudlet output size</th>
+      <th>Host</th>
+      <th>Host cpu cores</th>
+      <th>Host ram</th>
+      <th>Host storage</th>
+      <th>Host bw</th>
+      <th>Host mips</th>
+      <th>Show </th>
+    </tr>
+    </thead>
+
+      <tbody>
+        <% @simulation_results.each do |simulation_result| %>
+          <tr>
+            <%= render partial: "simulation_result",locals: {simulation_result: simulation_result}%>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+
+  <!-- Pagination Links -->
+  <%= will_paginate @simulation_results, class: "pagination justify-content-center" %>
+</div>
+
+<%# link_to "New simulation result", new_simulation_result_path %>
