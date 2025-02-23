@@ -1,4 +1,6 @@
+require 'csv'
 class SimulationResultsController < ApplicationController
+
   before_action :set_simulation_result, only: %i[ show edit update destroy ]
 
   # GET /simulation_results or /simulation_results.json
@@ -12,7 +14,14 @@ class SimulationResultsController < ApplicationController
 
   # GET /simulation_results/new
   def new
-    @simulation_result = SimulationResult.new
+    csv_data = CSV.generate(headers: true) do |csv|
+      csv << SimulationResult.column_names
+      SimulationResult.find_each do |simulation_result|
+        csv << simulation_result.attributes.values_at(*SimulationResult.column_names)
+      end
+  end
+  
+    send_data csv_data, filename: "simulation_results.csv", type: "text/csv"
   end
 
   # GET /simulation_results/1/edit

@@ -10,12 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_20_110718) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_23_002427) do
   create_table "cloudlets", force: :cascade do |t|
     t.integer "length"
     t.integer "file_size"
     t.integer "output_size"
     t.string "workload_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "compare_algos", force: :cascade do |t|
+    t.integer "cloudlet_id"
+    t.string "algo"
+    t.decimal "algo_eff_time"
+    t.decimal "min_cost"
+    t.decimal "min_executn_time"
+    t.integer "instance_type_id"
+    t.integer "datacenter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

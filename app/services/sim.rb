@@ -7,9 +7,9 @@ Dir[Rails.root.join("lib/java_apis/*.jar")].each do |jar|
   
 class Sim
   SLA_LIMITS = {
-    "cpu_utilization" => 0.1,  # Max 80% CPU usage
-    "ram_utilization" => 0.1,  # Max 70% RAM usage
-    "bw_utilization" => 0.1 ,   # Max 90% Bandwidth usage
+    "cpu_utilization" => 1.0,  # Max 80% CPU usage
+    "ram_utilization" => 1.0,  # Max 70% RAM usage
+    "bw_utilization" => 1.0 ,   # Max 90% Bandwidth usage
     "execution_time" => 50.0   # Max 50 seconds for Cloudlet
     }
 

@@ -1,6 +1,6 @@
 require "test_helper"
 
-class HostTest < ActiveSupport::TestCase
+class CompareAlgoTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

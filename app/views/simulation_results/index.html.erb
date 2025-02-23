@@ -56,4 +56,4 @@
   <%= will_paginate @simulation_results, class: "pagination justify-content-center" %>
 </div>
 
-<%# link_to "New simulation result", new_simulation_result_path %>
+<%= link_to "Download csv ", new_simulation_result_path,remote: true , data: {type: 'text/csv'} %>

@@ -1,10 +1,34 @@
 Rails.application.routes.draw do
   resources :simulation_results
-  resources :cloudlets
-  resources :datacenters do
-  resources :hosts
-  resources :vms
-  end
+ 
+   resources :cloudlets
+   resources :datacenters 
+   resources :instance_types
+  # resources :datacenters do 
+  #   resources :instance_types , shallow: true 
+  # end 
+
+
+  # shallow do 
+  #   resources :datacenters do 
+  #     resources :instance_types
+  #   end 
+  # end 
+
+  # resource :cloudlets
+  # resources :datacenters do 
+  #   resources :instance_types , shallow: true 
+  # end 
+
+  # generate same routes as above , 
+  # shallow means that the routes will be 
+  # divided into collection routes and member routes ,
+  # member routes will not be nested where as 
+  # the collection routes will be nest with the associated class id .
+   
+  # collection routes are index , new , create 
+  # member routes are edit, update , destroy , show  
+
 
   root "simulation_results#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

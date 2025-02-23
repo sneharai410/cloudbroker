@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cloudlet_id: 1
+  algo: MyString
+  algo_eff_time: 9.99
+  min_cost: 9.99
+  min_executn_time: 9.99
+  instance_type_id: 1
+  datacenter_id: 1
+
+two:
+  cloudlet_id: 1
+  algo: MyString
+  algo_eff_time: 9.99
+  min_cost: 9.99
+  min_executn_time: 9.99
+  instance_type_id: 1
+  datacenter_id: 1

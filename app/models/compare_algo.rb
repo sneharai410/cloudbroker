@@ -1,0 +1,2 @@
+class CompareAlgo < ApplicationRecord
+end
