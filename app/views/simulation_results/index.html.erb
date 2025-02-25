@@ -1,9 +1,9 @@
 <p style="color: green"><%= notice %></p>
 <div id="simulation_results">
   <% cache [@simulation_results, params[:page]] do %>
-    <table class="table table-striped border ">
-      <thead>
-      <tr class="table-primary"> <!-- Use a Bootstrap class for the header row -->
+    <table class="table table-striped table-bordered">
+     <thead class="table-dark">
+      <tr>
       <th>Cloudlet</th>
       <th>Vm</th>
       <th>Datacenter</th>
@@ -53,7 +53,8 @@
   <% end %>
 
   <!-- Pagination Links -->
-  <%= will_paginate @simulation_results, class: "pagination justify-content-center" %>
+  <%= will_paginate @simulation_results, 
+  class: "pagination pagination-sm justify-content-center" %>
 </div>
 
 <%= link_to "Download csv ", new_simulation_result_path,remote: true , data: {type: 'text/csv'} %>

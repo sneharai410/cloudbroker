@@ -1,14 +1,33 @@
 <p style="color: green"><%= notice %></p>
+<% cache [@cloudlets , params[:page]] do %>
+<table class="table table-striped table-bordered">
+  <thead class="table-dark">
+    <tr>
+      <th>#</th>
+      <th>Length</th>
+      <th>File Size</th>
+      <th>Output Size</th>
+      <th>Workload Type</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cloudlets.each_with_index do |cloudlet, index| %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td><%= cloudlet.length %></td>
+        <td><%= cloudlet.file_size %></td>
+        <td><%= cloudlet.output_size %></td>
+        <td><%= cloudlet.workload_type %></td>
+        <td>
+          <%= link_to "Show", cloudlet, class: "btn btn-primary btn-sm" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
 
-<h1>Cloudlets</h1>
 
-<div id="cloudlets">
-  <% @cloudlets.each do |cloudlet| %>
-    <%= render cloudlet %>
-    <p>
-      <%= link_to "Show this cloudlet", cloudlet %>
-    </p>
-  <% end %>
-</div>
-
+<%= will_paginate @cloudlets, class: "pagination justify-content-center" %>
 <%= link_to "New cloudlet", new_cloudlet_path %>

@@ -85,6 +85,7 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
+    apexcharts (0.2.0)
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
@@ -295,6 +296,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-jdbcsqlite3-adapter (~> 71.0)
+  apexcharts
   capybara
   error_highlight (>= 0.4.0)
   importmap-rails

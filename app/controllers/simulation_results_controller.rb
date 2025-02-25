@@ -13,6 +13,18 @@ class SimulationResultsController < ApplicationController
   end
 
   # GET /simulation_results/new
+  def download_algo
+    csv_data = CSV.generate(headers: true) do |csv|
+      csv << CompareAlgo.column_names
+      CompareAlgo.find_each do |algo|
+        csv << algo.attributes.values_at(*CompareAlgo.column_names)
+      end
+  end
+  
+    send_data csv_data, filename: "algo_results.csv", type: "text/csv"
+  end
+
+  # GET /simulation_results/new
   def new
     csv_data = CSV.generate(headers: true) do |csv|
       csv << SimulationResult.column_names

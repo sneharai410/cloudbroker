@@ -1,22 +1,23 @@
-<div id="<%= dom_id cloudlet %>">
-  <p>
-    <strong>Length:</strong>
-    <%= cloudlet.length %>
-  </p>
-
-  <p>
-    <strong>File size:</strong>
-    <%= cloudlet.file_size %>
-  </p>
-
-  <p>
-    <strong>Output size:</strong>
-    <%= cloudlet.output_size %>
-  </p>
-
-  <p>
-    <strong>Workload type:</strong>
-    <%= cloudlet.workload_type %>
-  </p>
-
+<div id="<%= dom_id cloudlet %>" class="d-flex justify-content-center shadow-lg">
+  <div class="card shadow-sm" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">Cloudlet Details</h5>
+      <p class="card-text">
+        <strong>Length:</strong>
+        <%= cloudlet.length || "N/A" %>
+      </p>
+      <p class="card-text">
+        <strong>File Size:</strong>
+        <%= cloudlet.file_size || "N/A" %>
+      </p>
+      <p class="card-text">
+        <strong>Output Size:</strong>
+        <%= cloudlet.output_size || "N/A" %>
+      </p>
+      <p class="card-text">
+        <strong>Workload Type:</strong>
+        <%= cloudlet.workload_type || "N/A" %>
+      </p>
+    </div>
+  </div>
 </div>

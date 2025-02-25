@@ -1,6 +1,46 @@
 <p style="color: green"><%= notice %></p>
 
+algo_groups
+
 <%= render @cloudlet %>
+
+<% @algo_groups.each do |algo, records| %>
+  <div class="card mb-4 shadow-lg">
+    <div class="card-header">
+      <h5 class="card-title mb-0">Algo: <%= algo || "N/A" %></h5>
+    </div>
+    <div class="card-body">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Cloudlet ID</th>
+            <th>Algo Efficiency Time</th>
+            <th>Min Cost</th>
+            <th>Min Execution Time</th>
+            <th>Instance Type ID</th>
+            <th>Datacenter ID</th>
+            <th>Datacenter Name </th>
+            <th>Updated At</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% records.each do |record| %>
+            <tr>
+              <td><%= record.cloudlet_id || "N/A" %></td>
+              <td><%= record.algo_eff_time || "N/A" %></td>
+              <td><%= record.min_cost || "N/A" %></td>
+              <td><%= record.min_executn_time || "N/A" %></td>
+              <td><%= record.instance_type_id || "N/A" %></td>
+              <td><%= record.datacenter_id || "N/A" %></td>
+              <td><%= Datacenter.find(record.datacenter_id).name || "N/A" %></td>
+              <td><%= record.updated_at || "N/A" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% end %>
 
 <div>
   <%= link_to "Edit this cloudlet", edit_cloudlet_path(@cloudlet) %> |
@@ -8,3 +48,4 @@
 
   <%= button_to "Destroy this cloudlet", @cloudlet, method: :delete %>
 </div>
+

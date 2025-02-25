@@ -1,14 +1,28 @@
-<p style="color: green"><%= notice %></p>
+<h1 class="text-center my-4">Datacenters</h1>
 
-<h1>Datacenters</h1>
-
-<div id="datacenters">
-  <% @datacenters.each do |datacenter| %>
-    <%= render datacenter %>
-    <p>
-      <%= link_to "Show this datacenter", datacenter %>
-    </p>
-  <% end %>
+<div class="container">
+  <div class="row">
+    <% @datacenters.each do |datacenter| %>
+      <div class="col-md-4 mb-4">
+        <div class="card text-white shadow-lg" style="background-image: url('<%= asset_path("datacenter.jpeg") %>'); background-size: cover; background-position: center;">
+          <div class="card-body" style="background: rgba(0, 0, 0, 0.6); border-radius: 10px;">
+            <h5 class="card-title text-center"><%= datacenter.name %></h5>
+            <ul class="list-unstyled">
+              <li><strong>Num Hosts:</strong> <%= datacenter.num_hosts %></li>
+              <li><strong>PE MIPS:</strong> <%= datacenter.pe_mips %></li>
+              <li><strong>RAM:</strong> <%= datacenter.ram %> MB</li>
+              <li><strong>Storage:</strong> <%= datacenter.storage %> GB</li>
+              <li><strong>Bandwidth:</strong> <%= datacenter.bandwidth %> Mbps</li>
+            </ul>
+            <div class="d-flex justify-content-between">
+              <%= link_to "View Details", datacenter, class: "btn btn-light btn-sm" %>
+              <%= link_to "Edit", edit_datacenter_path(datacenter), class: "btn btn-warning btn-sm" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
 
-<%= link_to "New datacenter", new_datacenter_path %>
+<%= link_to "New Datacenter", new_datacenter_path, class: "btn btn-primary mt-4" %>

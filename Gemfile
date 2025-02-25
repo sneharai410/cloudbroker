@@ -39,6 +39,9 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem 'will_paginate', '~> 3.3'
 gem 'redis-rails'
 
+gem 'apexcharts'
+
+
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"

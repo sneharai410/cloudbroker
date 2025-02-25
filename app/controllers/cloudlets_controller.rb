@@ -2,12 +2,16 @@ class CloudletsController < ApplicationController
   before_action :set_cloudlet, only: %i[ show edit update destroy ]
 
   # GET /cloudlets or /cloudlets.json
+  def home 
+  end
+
   def index
-    @cloudlets = Cloudlet.all
+    @cloudlets = Cloudlet.paginate(page: params[:page], per_page: 10)
   end
 
   # GET /cloudlets/1 or /cloudlets/1.json
   def show
+    @algo_groups =  CompareAlgo.where(cloudlet_id:@cloudlet).group_by(&:algo)
   end
 
   # GET /cloudlets/new
