@@ -7,7 +7,7 @@ gem 'rails', '~> 7.1.3'
 gem "sprockets-rails"
 # Use sqlite3 as the database for Active Record
 #gem "sqlite3", ">= 1.4"
-gem 'activerecord-jdbcsqlite3-adapter', '~> 71.0' 
+# gem 'activerecord-jdbcsqlite3-adapter', '~> 71.0' 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
@@ -40,6 +40,11 @@ gem 'will_paginate', '~> 3.3'
 gem 'redis-rails'
 
 gem 'apexcharts'
+
+# Gemfile
+platform :jruby do
+  gem 'activerecord-jdbcmysql-adapter'
+end
 
 
 group :development do

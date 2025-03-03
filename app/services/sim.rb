@@ -18,8 +18,22 @@ class Sim
         Datacenter.all.each do |datacenter|
             cloudsim = CloudSimPlus.new
             host_list = Sim.create_hosts(datacenter)
-            characteristics = DatacenterCharacteristicsSimple.new(datacenter.cpu_cost, datacenter.ram_cost, datacenter.storage_cost, datacenter.bw_cost)    
-            datacenter_sim = DatacenterSimple.new(cloudsim, host_list)
+            characteristics = DatacenterCharacteristicsSimple.new(datacenter.cpu_cost, datacenter.ram_cost, datacenter.storage_cost, datacenter.bw_cost)  
+
+            vm_scheduling_policy =  case datacenter.scheduling_policy 
+            when "VmAllocationPolicyRandom"
+              VmAllocationPolicyRoundRobin.new
+            when "VmAllocationPolicyRoundRobin"
+              VmAllocationPolicyRoundRobin.new
+            when "VmAllocationPolicyBestFit"
+              VmAllocationPolicyBestFit.new
+            when "VmAllocationPolicyFirstFit"
+              VmAllocationPolicyFirstFit.new
+            else
+              VmAllocationPolicySimple.new
+            end
+
+            datacenter_sim = DatacenterSimple.new(cloudsim, host_list,vm_scheduling_policy)
             datacenter_sim.set_characteristics(characteristics)
             .set_name(datacenter.name)
 
@@ -84,12 +98,13 @@ class Sim
              host_pe_list.add(PeSimple.new(datacenter.pe_mips))
           end
           
-          host  = HostSimple.new(1277440,10000,5000000,host_pe_list)
+          host = HostSimple.new( datacenter.ram , datacenter.bandwidth , datacenter.storage , host_pe_list)
               .setRamProvisioner(ResourceProvisionerSimple.new)
               .setBwProvisioner(ResourceProvisionerSimple.new)
               .set_vm_scheduler(VmSchedulerSpaceShared.new)
 
           host_list.add(host)
+
         end
         host_list
     end
@@ -126,12 +141,14 @@ class Sim
             puts "cost calulation started....................................."
              
               # Calculate cost
-              cost = (execution_time * datacenter.cpu_cost * cpu_utilization) +
+            cost = (execution_time * datacenter.cpu_cost * cpu_utilization) +
                       (execution_time * datacenter.ram_cost * ram_utilization) +
                       (execution_time * datacenter.bw_cost * bw_utilization) 
                       # (execution_time * datacenter.storage_cost * storage_utilization)
            
             puts "sla calulation started ....................................."
+            cost_by_instance_type =  (InstanceType.find(vm.getId).pricePerHour * execution_time)
+
 
             execution_time_breach = execution_time > SLA_LIMITS["execution_time"]
             cpu_breach = cpu_utilization > SLA_LIMITS["cpu_utilization"]
@@ -140,12 +157,12 @@ class Sim
 
             puts "sla breach cost calculation started .................. "
 
-            sla_breach_cost = 0
-            sla_breach_cost += datacenter.cpu_cost * execution_time if cpu_breach
-            sla_breach_cost += datacenter.ram_cost * execution_time if ram_breach
-            sla_breach_cost += datacenter.bw_cost * execution_time if bw_breach
+            # sla_breach_cost = 0
+            # sla_breach_cost += datacenter.cpu_cost * execution_time if cpu_breach
+            # sla_breach_cost += datacenter.ram_cost * execution_time if ram_breach
+            # sla_breach_cost += datacenter.bw_cost * execution_time if bw_breach
 
-            puts "the sla cost is #{sla_breach_cost}....................."
+            # puts "the sla cost is #{sla_breach_cost}....................."
 
             # Print debug information to the console
             puts "===== Debug Information ====="
@@ -172,7 +189,7 @@ class Sim
             puts "RAM Breach: #{ram_breach}"
             puts "BW Breach: #{bw_breach}"
             puts "Cost: #{cost}"
-            puts "SLA Breach Cost: #{sla_breach_cost}"
+            puts "SLA Breach Cost: #{cost_by_instance_type}"
             puts "Cloudlet Id #{cloudlet.getId}"
             puts "Cloudlet Pes Number #{cloudlet.getPesNumber}"
             puts "Cloudlet FileSize #{cloudlet.getFileSize}"
@@ -218,7 +235,7 @@ class Sim
             ram_breach: ram_breach,
             bw_breach: bw_breach,
             cost: cost,
-            sla_breach_cost: sla_breach_cost)
+            sla_breach_cost: cost_by_instance_type)
 
       end
 
@@ -244,6 +261,9 @@ class Sim
       java_import "org.cloudsimplus.vms.VmSimple"
       java_import "org.cloudsimplus.allocationpolicies.VmAllocationPolicyRandom"
       java_import "org.cloudsimplus.allocationpolicies.VmAllocationPolicyRoundRobin"
+      java_import "org.cloudsimplus.allocationpolicies.VmAllocationPolicyBestFit"
+      java_import "org.cloudsimplus.allocationpolicies.VmAllocationPolicyFirstFit"
+      java_import "org.cloudsimplus.allocationpolicies.VmAllocationPolicySimple"
       java_import "java.util.ArrayList"
       # java_import "java.lang.String"
       java_import "org.cloudsimplus.slametrics.SlaContract"

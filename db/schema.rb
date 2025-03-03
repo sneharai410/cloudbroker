@@ -10,8 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_23_002427) do
-  create_table "cloudlets", force: :cascade do |t|
+ActiveRecord::Schema[7.1].define(version: 2025_03_03_155319) do
+  create_table "cloudlets", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "length"
     t.integer "file_size"
     t.integer "output_size"
@@ -20,19 +20,19 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_23_002427) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "compare_algos", force: :cascade do |t|
+  create_table "compare_algos", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "cloudlet_id"
     t.string "algo"
-    t.decimal "algo_eff_time"
-    t.decimal "min_cost"
-    t.decimal "min_executn_time"
+    t.decimal "algo_eff_time", precision: 10
+    t.decimal "min_cost", precision: 10, scale: 2
+    t.decimal "min_executn_time", precision: 10, scale: 2
     t.integer "instance_type_id"
     t.integer "datacenter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "datacenters", force: :cascade do |t|
+  create_table "datacenters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.integer "num_hosts", default: 1
     t.integer "pe_mips", default: 1000
@@ -56,28 +56,18 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_23_002427) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "hosts", force: :cascade do |t|
-    t.integer "datacenter_id", null: false
-    t.integer "ram"
-    t.integer "storage"
-    t.integer "bandwidth"
-    t.integer "pe_count"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["datacenter_id"], name: "index_hosts_on_datacenter_id"
-  end
-
-  create_table "instance_types", force: :cascade do |t|
+  create_table "instance_types", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.integer "cpus"
     t.integer "memoryInMB"
-    t.decimal "pricePerHour"
+    t.decimal "pricePerHour", precision: 10, scale: 2
     t.string "region"
+    t.integer "datacenter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "simulation_results", force: :cascade do |t|
+  create_table "simulation_results", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "datacenter_id"
     t.string "datacenter_name"
     t.float "datacenter_cpu_cost"
@@ -116,17 +106,4 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_23_002427) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "vms", force: :cascade do |t|
-    t.integer "datacenter_id", null: false
-    t.integer "mips"
-    t.integer "ram"
-    t.integer "storage"
-    t.integer "bandwidth"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["datacenter_id"], name: "index_vms_on_datacenter_id"
-  end
-
-  add_foreign_key "hosts", "datacenters"
-  add_foreign_key "vms", "datacenters"
 end

@@ -4,8 +4,8 @@ class CreateCompareAlgos < ActiveRecord::Migration[7.1]
       t.integer :cloudlet_id
       t.string :algo
       t.decimal :algo_eff_time
-      t.decimal :min_cost
-      t.decimal :min_executn_time
+      t.decimal :min_cost , precision: 10, scale: 2
+      t.decimal :min_executn_time , precision: 10, scale: 2
       t.integer :instance_type_id
       t.integer :datacenter_id
 
