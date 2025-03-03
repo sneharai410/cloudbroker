@@ -38,7 +38,7 @@ class Sim
             .set_name(datacenter.name)
 
             # print_host_details(datacenter_sim)
-            vm_list = Sim.create_vm_list()
+            vm_list = Sim.create_vm_list(datacenter)
             cloudlet_list = Sim.create_cloudlet_list()
             broker = DatacenterBrokerSimple.new(cloudsim, String.new( ["Broker",datacenter.name].join("_") ))
             broker.submit_vm_list(vm_list)    
@@ -48,15 +48,15 @@ class Sim
         end
     end
 
-    def create_vm_list
+    def create_vm_list(datacenter)
       vm_list = java.util.ArrayList.new
-      InstanceType.all.each do |instance|
+      datacenter.instance_types.all.each do |instance|
 
          vm =  VmSimple.new(instance.cpus * 1000, instance.cpus) # 1000 MIPS per CPU
             .setId(instance.id)
             .setRam(instance.memoryInMB)
-            .setBw(1000) # Bandwidth in Mbps
-            .setSize(20000) # Storage in MB
+            .setBw(10000) # Bandwidth in Mbps
+            .setSize(200000) # Storage in MB
             .setCloudletScheduler(CloudletSchedulerTimeShared.new) # Time-shared scheduler
             # .setDescription("Instance: #{instance[:name]}, Region: #{instance[:region]}, Price: $#{instance[:pricePerHour]}/hour")
           vm_list.add(vm)  
@@ -163,6 +163,7 @@ class Sim
             # sla_breach_cost += datacenter.bw_cost * execution_time if bw_breach
 
             # puts "the sla cost is #{sla_breach_cost}....................."
+
 
             # Print debug information to the console
             puts "===== Debug Information ====="
