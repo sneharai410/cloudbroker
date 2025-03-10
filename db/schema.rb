@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_03_155319) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_04_220054) do
   create_table "cloudlets", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "length"
     t.integer "file_size"
@@ -23,11 +23,13 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_03_155319) do
   create_table "compare_algos", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "cloudlet_id"
     t.string "algo"
-    t.decimal "algo_eff_time", precision: 10
-    t.decimal "min_cost", precision: 10, scale: 2
-    t.decimal "min_executn_time", precision: 10, scale: 2
+    t.float "algo_eff_time"
+    t.float "min_cost"
+    t.float "min_exec_time"
     t.integer "instance_type_id"
     t.integer "datacenter_id"
+    t.float "predicted_cost"
+    t.float "predicted_exec_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -101,7 +103,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_03_155319) do
     t.boolean "ram_breach"
     t.boolean "bw_breach"
     t.float "cost"
-    t.float "sla_breach_cost"
+    t.float "vm_exec_cost"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

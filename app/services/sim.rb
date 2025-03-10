@@ -190,7 +190,7 @@ class Sim
             puts "RAM Breach: #{ram_breach}"
             puts "BW Breach: #{bw_breach}"
             puts "Cost: #{cost}"
-            puts "SLA Breach Cost: #{cost_by_instance_type}"
+            puts "vm_exec_cost: #{cost_by_instance_type}"
             puts "Cloudlet Id #{cloudlet.getId}"
             puts "Cloudlet Pes Number #{cloudlet.getPesNumber}"
             puts "Cloudlet FileSize #{cloudlet.getFileSize}"
@@ -236,7 +236,7 @@ class Sim
             ram_breach: ram_breach,
             bw_breach: bw_breach,
             cost: cost,
-            sla_breach_cost: cost_by_instance_type)
+            vm_exec_cost: cost_by_instance_type)
 
       end
 

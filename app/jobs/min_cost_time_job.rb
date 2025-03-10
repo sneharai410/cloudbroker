@@ -9,13 +9,21 @@ class MinCostTimeJob < ApplicationJob
       w1 = 0.7
       w2 = 0.3
       sim_results = SimulationResult.where(cloudlet_id:cloudlet.id)
+      min_cost = sim_results.pluck(:vm_exec_cost).min
+      min_exec_time = sim_results.pluck(:execution_time).min
       hash_result = greedy_algorithm(w1,w2,sim_results)
+      hash_result[:min_cost] = min_cost
+      hash_result[:min_exec_time] = min_exec_time
       CompareAlgo.create(hash_result)
       hash_result = dynamic_programming(w1,w2,sim_results)
+      hash_result[:min_cost] = min_cost
+      hash_result[:min_exec_time] = min_exec_time
       CompareAlgo.create(hash_result)
       # hash_result = backtracking(w1,w2,sim_results)
       # CompareAlgo.create(hash_result)
       hash_result = divide_and_conquer(w1,w2,sim_results)
+      hash_result[:min_cost] = min_cost
+      hash_result[:min_exec_time] = min_exec_time
       CompareAlgo.create(hash_result)
       # hash_result = greedy_backtracking_hybrid(w1,w2,sim_results)
       # CompareAlgo.create(hash_result)
@@ -48,8 +56,8 @@ class MinCostTimeJob < ApplicationJob
       
       return { cloudlet_id:sim_results.pluck(:cloudlet_id).uniq.last,
               algo:algo_name,
-              min_cost:op_cost, 
-              min_executn_time:op_time,
+              predicted_cost:op_cost, 
+              predicted_exec_time:op_time,
               instance_type_id:best_vm_id,
               datacenter_id:best_datacenter,
               algo_eff_time:time.round(10)
@@ -92,8 +100,8 @@ class MinCostTimeJob < ApplicationJob
       return {
         cloudlet_id: sim_results.pluck(:cloudlet_id).uniq.last,
         algo: algo_name,
-        min_cost: op_cost,
-        min_executn_time: op_time,
+        predicted_cost: op_cost,
+        predicted_exec_time: op_time,
         instance_type_id: best_vm_id,
         datacenter_id: best_datacenter,
         algo_eff_time: time.round(10)
@@ -135,8 +143,8 @@ class MinCostTimeJob < ApplicationJob
       return {
         cloudlet_id: sim_results.pluck(:cloudlet_id).uniq.last,
         algo: algo_name,
-        min_cost: op_cost,
-        min_executn_time: op_time,
+        predicted_cost: op_cost,
+        predicted_exec_time: op_time,
         instance_type_id: best_vm_id,
         datacenter_id: best_datacenter,
         algo_eff_time: time.round(10)
@@ -176,8 +184,8 @@ class MinCostTimeJob < ApplicationJob
       return {
         cloudlet_id: sim_results.pluck(:cloudlet_id).uniq.last,
         algo: algo_name,
-        min_cost: op_cost,
-        min_executn_time: op_time,
+        predicted_cost: op_cost,
+        predicted_exec_time: op_time,
         instance_type_id: best_vm_id,
         datacenter_id: best_datacenter,
         algo_eff_time: time.round(10)
@@ -194,7 +202,7 @@ class MinCostTimeJob < ApplicationJob
     
       # Step 1: Greedy Phase - Find a promising solution quickly
       greedy_solution = greedy_algorithm(w1, w2, sim_results)
-      greedy_cost_time = w1 * greedy_solution[:min_cost] + w2 * greedy_solution[:min_executn_time]
+      greedy_cost_time = w1 * greedy_solution[:predicted_cost] + w2 * greedy_solution[:predicted_exec_time]
     
       # Step 2: Backtracking Phase - Explore solutions around the greedy solution
       def backtrack(sim_results, index, w1, w2, current_cost, current_time, best_cost_time, best_vm_id, best_datacenter, greedy_cost_time)
@@ -230,8 +238,8 @@ class MinCostTimeJob < ApplicationJob
       return {
         cloudlet_id: sim_results.pluck(:cloudlet_id).uniq.last,
         algo: algo_name,
-        min_cost: op_cost,
-        min_executn_time: op_time,
+        predicted_cost: op_cost,
+        predicted_exec_time: op_time,
         instance_type_id: best_vm_id,
         datacenter_id: best_datacenter,
         algo_eff_time: time.round(10)
@@ -250,8 +258,8 @@ class MinCostTimeJob < ApplicationJob
           {
             cloudlet_id: best_result.cloudlet_id,  # Optimize retrieval
             algo: algo_name,
-            min_cost: best_result.cost,
-            min_executn_time: best_result.execution_time,
+            predicted_cost: best_result.cost,
+            predicted_exec_time: best_result.execution_time,
             instance_type_id: best_result.vm_id,
             datacenter_id: best_result.datacenter_id,
             algo_eff_time: time.round(10)
