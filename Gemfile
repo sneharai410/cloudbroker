@@ -60,3 +60,4 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+gem 'pry-debugger-jruby', '~> 2.2.1'

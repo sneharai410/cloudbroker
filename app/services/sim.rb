@@ -67,7 +67,8 @@ class Sim
 
     def create_cloudlet_list
       cloudlet_list = java.util.ArrayList.new
-      Cloudlet.all.each do |cloudlet|
+      cloudlet_ids = SimulationResult.where("created_at < ?", 6.hour.ago).pluck(:cloudlet_id)
+      Cloudlet.where.not(id:cloudlet_ids).each do |cloudlet|
       cloudlet = CloudletSimple.new(cloudlet.length, 1, UtilizationModelFull.new)
       .setId(cloudlet.id)
       .setOutputSize(cloudlet.output_size)
@@ -236,7 +237,7 @@ class Sim
             ram_breach: ram_breach,
             bw_breach: bw_breach,
             cost: cost,
-            sla_breach_cost: cost_by_instance_type)
+            vm_exec_cost: cost_by_instance_type)
 
       end
 

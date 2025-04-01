@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_03_155319) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_29_154707) do
   create_table "cloudlets", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "length"
     t.integer "file_size"
@@ -23,9 +23,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_03_155319) do
   create_table "compare_algos", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "cloudlet_id"
     t.string "algo"
-    t.decimal "algo_eff_time", precision: 10
-    t.decimal "min_cost", precision: 10, scale: 2
-    t.decimal "min_executn_time", precision: 10, scale: 2
+    t.float "algo_eff_time"
+    t.float "min_cost"
+    t.float "min_executn_time"
     t.integer "instance_type_id"
     t.integer "datacenter_id"
     t.datetime "created_at", null: false
@@ -60,7 +60,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_03_155319) do
     t.string "name"
     t.integer "cpus"
     t.integer "memoryInMB"
-    t.decimal "pricePerHour", precision: 10, scale: 2
+    t.float "pricePerHour"
     t.string "region"
     t.integer "datacenter_id"
     t.datetime "created_at", null: false
@@ -101,9 +101,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_03_155319) do
     t.boolean "ram_breach"
     t.boolean "bw_breach"
     t.float "cost"
-    t.float "sla_breach_cost"
+    t.float "vm_exec_cost"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "workload_type"
   end
 
 end
