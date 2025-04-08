@@ -6,6 +6,11 @@ class SmoJob < ApplicationJob
     w2 = 0.3
     num_monkeys = 30
     max_iterations = 50
+    $cost_min = SimulationResult.pluck(:vm_exec_cost).min # Replace with actual min from dataset
+    $cost_max = SimulationResult.pluck(:vm_exec_cost).max # Replace with actual max from dataset
+    $time_min = SimulationResult.pluck(:execution_time).min # Replace with actual min from dataset
+    $time_max = SimulationResult.pluck(:execution_time).max # Replace with actual max from dataset
+
     h = []
     
     # @sim_res = SimulationResult.all
@@ -26,7 +31,7 @@ class SmoJob < ApplicationJob
 
       h << {
         cloudlet_id: cloudlet.id,
-        algo: "spider_monkey_optimizations",
+        algo: "smo_penality_based",
         min_cost: @smo.best_solution.vm_exec_cost,
         min_executn_time: @smo.best_solution.execution_time,
         instance_type_id: @smo.best_solution.vm_id,
@@ -64,7 +69,7 @@ class Smoo
         monkey.evaluate
         
         if monkey.fitness < @best_fitness
-          @best_fitness = monkey.fitness
+          @best_fitness = monkey.fitness 
           @best_solution = monkey.position
         end
       end
@@ -82,9 +87,26 @@ class Monkey
     @fitness = evaluate
   end
 
+  # def evaluate
+  #   @position.vm_exec_cost * @w1 + @position.execution_time * @w2
+  # end
+
+  # def evaluate
+  #   norm_cost = (@position.vm_exec_cost - $cost_min) / ($cost_max - $cost_min).to_f
+  #   norm_time = (@position.execution_time - $time_min) / ($time_max - $time_min).to_f
+  #   (norm_cost * @w1) + (norm_time * @w2)
+  # end
+
   def evaluate
-    @position.vm_exec_cost * @w1 + @position.execution_time * @w2
+    alpha = 0.05  # Adjust based on your dataset
+    beta = 0.02
+  
+    penalty_cost = Math.exp(alpha * @position.vm_exec_cost)
+    penalty_time = Math.exp(beta * @position.execution_time)
+  
+    (penalty_cost * @w1) + (penalty_time * @w2)
   end
+  
 
   def explore(best_solution, sim_results)
     if best_solution.nil? || rand < 0.5
