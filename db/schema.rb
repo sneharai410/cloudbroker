@@ -101,7 +101,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_29_154707) do
     t.boolean "ram_breach"
     t.boolean "bw_breach"
     t.float "cost"
-    t.float "vm_exec_cost"
+    t.float "sla_breach_cost"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "workload_type"

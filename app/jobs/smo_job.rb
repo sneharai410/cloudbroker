@@ -31,7 +31,9 @@ class SmoJob < ApplicationJob
 
       h << {
         cloudlet_id: cloudlet.id,
-        algo: "smo_penality_based",
+        # algo: "smo_weight_based",
+        #  algo: "smo_penality_based",
+        #  algo: "smo_normalisation_based",        
         min_cost: @smo.best_solution.vm_exec_cost,
         min_executn_time: @smo.best_solution.execution_time,
         instance_type_id: @smo.best_solution.vm_id,
@@ -97,15 +99,15 @@ class Monkey
   #   (norm_cost * @w1) + (norm_time * @w2)
   # end
 
-  def evaluate
-    alpha = 0.05  # Adjust based on your dataset
-    beta = 0.02
+  # def evaluate
+  #   alpha = 0.05  # Adjust based on your dataset
+  #   beta = 0.02
   
-    penalty_cost = Math.exp(alpha * @position.vm_exec_cost)
-    penalty_time = Math.exp(beta * @position.execution_time)
+  #   penalty_cost = Math.exp(alpha * @position.vm_exec_cost)
+  #   penalty_time = Math.exp(beta * @position.execution_time)
   
-    (penalty_cost * @w1) + (penalty_time * @w2)
-  end
+  #   (penalty_cost * @w1) + (penalty_time * @w2)
+  # end
   
 
   def explore(best_solution, sim_results)
